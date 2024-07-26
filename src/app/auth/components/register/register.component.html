@@ -1,0 +1,115 @@
+<div
+  class="d-flex flex-column justify-content-center align-items-center vh-100"
+>
+  <div style="width: 90%; max-width: 600px">
+    <div class="text-center mb-5">
+      <img src="icons/logoipsum.svg" alt="app logo" />
+    </div>
+
+    <p class="fs-3">Create new account</p>
+    <form [formGroup]="registerForm" (ngSubmit)="register()">
+      <!-- User name input -->
+      <div style="min-height: 95px">
+        <label for="name" class="form-label fw-semibold">Name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="name"
+          formControlName="name"
+          [class.is-invalid]="
+            registerForm.get('name')?.invalid &&
+            registerForm.get('name')?.touched
+          "
+        />
+        @if(registerForm.get('name')?.invalid &&
+        registerForm.get('name')?.touched) {
+        <small class="invalid-feedback">Name is required.</small>
+        }
+      </div>
+
+      <!-- Email address input -->
+      <div style="min-height: 95px">
+        <label for="email" class="form-label fw-semibold">Email</label>
+        <input
+          type="email"
+          class="form-control"
+          id="email"
+          formControlName="email"
+          [class.is-invalid]="
+            registerForm.get('email')?.invalid &&
+            registerForm.get('email')?.touched
+          "
+        />
+        @if( registerForm.get('email')?.invalid &&
+        registerForm.get('email')?.touched) {
+        @if(registerForm.get('email')?.errors?.['email']) {
+        <small class="invalid-feedback">Invalid email format.</small>
+        }@else {
+        <small class="invalid-feedback">Email is required.</small>
+        } }
+      </div>
+
+      <div class="row">
+        <div class="col-12 col-sm-6">
+          <!-- Password input -->
+          <div style="min-height: 95px">
+            <label for="password" class="form-label fw-semibold"
+              >Password</label
+            >
+            <input
+              type="password"
+              class="form-control"
+              id="password"
+              formControlName="password"
+              [class.is-invalid]="
+                registerForm.get('password')?.invalid &&
+                registerForm.get('password')?.touched
+              "
+            />
+            @if(registerForm.get('password')?.invalid &&
+            registerForm.get('password')?.touched) {
+            <small class="invalid-feedback">Password is required.</small>
+            }
+          </div>
+        </div>
+        <div class="col-12 col-sm-6">
+          <!-- Repeat password input -->
+          <div style="min-height: 95px">
+            <label for="confirmPassword" class="form-label fw-semibold">
+              Repeat Password
+            </label>
+            <input
+              type="password"
+              class="form-control"
+              id="confirmPassword"
+              formControlName="confirmPassword"
+              [class.is-invalid]="
+                registerForm.get('confirmPassword')?.invalid &&
+                registerForm.get('confirmPassword')?.touched
+              "
+            />
+            @if(registerForm.get('confirmPassword')?.invalid &&
+            registerForm.get('confirmPassword')?.touched) {
+            <small class="invalid-feedback">Repeat password is required.</small>
+            }
+          </div>
+        </div>
+      </div>
+
+      <button
+        type="submit"
+        class="btn btn-primary w-100"
+        [disabled]="registerForm.invalid || submitting"
+      >
+        @if (submitting) {
+        <span class="spinner-border spinner-border-sm" role="status"></span>
+        } @else { Register }
+      </button>
+    </form>
+    <div class="text-center">
+      <a class="text-center mt-3" routerLink="/auth/login">
+        Already have an account? Login
+      </a>
+    </div>
+  </div>
+</div>
